@@ -3,6 +3,9 @@
 **by Anton Dziavitsyn 2019**  
 [a.dziavitsyn@gmail.com](mailto:a.dziavitsyn@gmail.com)
   
+## Image on DockerHub
+Builded docker image: [muritiku/postgres-tds](https://hub.docker.com/r/muritiku/postgres-tds)
+  
 ## How to run
 You can use docker-compose.yml to build postgres+adminier for tests:
 ```bash
@@ -39,7 +42,7 @@ IMPORT FOREIGN SCHEMA dbo
 	INTO public
 	OPTIONS (import_default 'true');
 ```
-
+  
 ## Using oracle_fdw for Oracle schema access (mapping)
 [Original documentation](https://github.com/laurenz/oracle_fdw "oracle_fdw GitHub repository")  
   

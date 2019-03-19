@@ -1,0 +1,43 @@
+FROM postgres:11.2
+
+LABEL maintainer='Anton Dziavitsyn a.dziavitsyn@gmail.com'
+
+RUN apt-get update 
+RUN apt-get -y install python3 postgresql-server-dev-11 postgresql-plpython3-11 libsybdb5 freetds-dev freetds-common make gcc git alien libaio1 libaio-dev
+
+WORKDIR /root
+
+RUN git clone https://github.com/tds-fdw/tds_fdw.git
+WORKDIR tds_fdw
+RUN make USE_PGXS=1
+RUN make USE_PGXS=1 install
+
+WORKDIR /root
+
+COPY ./oracle/*.rpm /root/
+
+RUN alien -i *.rpm
+
+COPY ./oracle/instantclient_18_5 /usr/lib/oracle/18.5/client64/
+
+RUN echo "/usr/lib/oracle/18.5/client64/lib/" >> /etc/ld.so.conf.d/oracle.conf
+RUN chmod o+r /etc/ld.so.conf.d/oracle.conf
+ENV ORACLE_HOME /usr/lib/oracle/18.5/client64
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/18.5/client64/lib/:$LD_LIBRARY_PATH
+RUN ln -s /usr/include/oracle/18.5/client64 $ORACLE_HOME/include
+RUN ldconfig
+
+RUN git clone https://github.com/laurenz/oracle_fdw.git
+WORKDIR oracle_fdw
+RUN make
+RUN make install
+
+WORKDIR /root
+
+RUN  apt-get clean && \
+     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+EXPOSE 5432
+CMD ["postgres"]

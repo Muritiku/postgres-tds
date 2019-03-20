@@ -3,6 +3,8 @@
 **by Anton Dziavitsyn 2019**  
 [a.dziavitsyn@gmail.com](mailto:a.dziavitsyn@gmail.com)
   
+Repository on GitHub: [https://github.com/Muritiku/postgres-tds](https://github.com/Muritiku/postgres-tds)  
+  
 ## Image on DockerHub
 Builded docker image: [muritiku/postgres-tds](https://hub.docker.com/r/muritiku/postgres-tds)
   

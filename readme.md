@@ -13,6 +13,8 @@ You can use docker-compose.yml to build postgres+adminier for tests:
 ```bash
 docker-compose -f pgsql-adminer.yml up
 ```  
+Then connect to postgreSQL instance, with using user: **postgres**, password: **1234**  
+You may change credentials with using environment variables (POSTGRES_USER and POSTGRES_PASSWORD) in compose file.  
   
 ## Using tds_fdw for MS-SQL schema access (mapping)
 [Original documentation](https://github.com/tds-fdw/tds_fdw "tds_fdw GitHub repository")  
